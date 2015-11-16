@@ -1,4 +1,9 @@
 Rails.application.routes.draw  do
-    get "/todos", to: "todos#index", :defaults => {:format => 'json'}
-    get "/todos/:id", to: "todos#show", :defaults => {:format => 'json'}
+    namespace :api, :defaults => {:format => 'json'} do
+        namespace :v1 do    
+            get  "/todos/",    to: "todos#index"
+            get  "/todos/:id", to: "todos#show"
+            post "/todos/",    to: "todos#create"
+        end 
+    end
 end
