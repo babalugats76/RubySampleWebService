@@ -1,5 +1,5 @@
 class Api::V1::TodosController < ActionController::API
-  include ActionController::Serialization
+  #include ActionController::Serialization
   before_action :set_todo, only: [:show]
 
   # GET /todos
@@ -11,27 +11,29 @@ class Api::V1::TodosController < ActionController::API
     
     # Search
     @todos = @todos.search(params[:q]) if params[:q]
-    render json: @todos, status: :ok
+    render status: :ok
   end
 
   # GET /todos/1
   # GET /todos/1.json
   def show
-    render json: @todo, status: :ok 
+    render status: :ok
   end
 
   # POST /todos
   # POST /todos.json
   def create
     
-    logger.info(params.inspect)
-    
+    #logger.info(params.inspect)
+    logger.info("before creation of new")
     @todo = Todo.new(todo_params)
+    logger.info("after creation on new")
     
     if @todo.save
-      render json: @todo, status: :created
+      render status: :created
     else
-      render json: @todo.errors, status: :unprocessable_entity
+      logger.info("inside else statement!")
+      render @todo.errors, status: :unprocessable_entity
     end
     
   end
