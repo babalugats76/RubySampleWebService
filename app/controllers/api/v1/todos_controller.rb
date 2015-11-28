@@ -25,14 +25,14 @@ class Api::V1::TodosController < ActionController::API
   def create
     
     #logger.info(params.inspect)
-    logger.info("before creation of new")
+    #logger.info("before creation of new")
     @todo = Todo.new(todo_params)
-    logger.info("after creation on new")
+    #logger.info("after creation on new")
     
     if @todo.save
       render status: :created
     else
-      logger.info("inside else statement!")
+      #logger.info("inside else statement!")
       render @todo.errors, status: :unprocessable_entity
     end
     
